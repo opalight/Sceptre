@@ -1,0 +1,33 @@
+{
+  "name": "hera",
+  "version": "0.0.1",
+  "description": "She does everything! (Literally)",
+  "author": "Collin Grimm <hey@collingrimm.me>",
+  "license": "MIT",
+  "engineStrict": true,
+  "engines": {
+    "node": ">= 8.9.0"
+  },
+  "devDependencies": {
+    "@types/jest": "~22.2.2",
+    "@types/node": "~8.10.0",
+    "jest": "~22.4.3",
+    "rimraf": "~2.6.2"
+  },
+  "scripts": {
+    "clean": "rimraf coverage build tmp",
+    "test": "npm run test-only",
+    "test-only": "jest --coverage",
+    "test:watch": "jest --watch"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "dotenv": "^5.0.1",
+    "googleapis": "^29.0.0",
+    "inquirer": "^5.2.0",
+    "minimist": "^1.2.0",
+    "nodemailer": "^4.6.4",
+    "nodemailer-smtp-transport": "^2.7.4",
+    "request": "^2.85.0"
+  }
+}
