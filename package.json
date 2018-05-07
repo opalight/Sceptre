@@ -8,6 +8,23 @@
   "engines": {
     "node": ">= 8.9.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/collinsnji/Hera.git"
+  },
+  "keywords": [
+    "Hera",
+    "DIY",
+    "Lyrics",
+    "Assistant",
+    "Mail",
+    "Anything"
+  ],
+  "bugs": {
+    "url": "https://github.com/collinsnji/Hera/issues"
+  },
+  "homepage": "https://github.com/collinsnji/Hera#readme",
+  
   "devDependencies": {
     "@types/jest": "~22.2.2",
     "@types/node": "~8.10.0",
