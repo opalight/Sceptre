@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+'use strict';
+
 const inquirer = require('inquirer');
 const minimist = require('minimist');
 const questions = require('../src/questions');
@@ -9,7 +11,7 @@ const hera = require('../index');
 const emailQuestions = questions.email;
 
 // Init
-const Hera = new Hera();
+const Hera = new hera();
 
 let args = {
     boolean: ['lyrics', 'shrug', 'mail', 'knowledge'],
