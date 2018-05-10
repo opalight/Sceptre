@@ -1,40 +1,41 @@
+'use strict';
+
 const request = require('request');
 const cheerio = require('cheerio');
+const chalk = require('chalk');
 
 class Lyrics {
-    constructor(song, artist) {
-        this.song = song;
-        this.artist = artist;
-    };
-    removeSpaces(str) {
-        return str.toString().trim();
-    };
-    spacer(str) {
-        if (!str) return false;
-
-        const capitalise = str.toString().split(' ').map((word) => word.toLowerCase().charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
-        return capitalise.match(/[^_\s\W]+/g).join('-');
-    };
+    WhiteSpace(str) { return str.toString().trim(); }
+    Spacer(str) {
+        if (!str) return;
+        return str.toString().toLowerCase().match(/[^_\s\W]+/g).join('');
+    }
 
     ly(song, artist) {
-        song = this.spacer(song);
-        artist = this.spacer(artist);
+        song = this.Spacer(song);
+        artist = this.Spacer(artist);
 
-        const lyricsURL = `https://www.musixmatch.com/lyrics/${artist}/${song}`;
-        const suggestionURL = `https://www.google.com/search?q=site%3Ahttps%3A%2F%2Fwww.musixmatch.com%2F+${song}+${artist}`;
+        let LyricURL = `https://www.azlyrics.com/lyrics/${artist}/${song}.html`;
+        let googleURL = `https://www.google.com/search?q=site%3Ahttps%3A%2F%2Fwww.metrolyrics.com%2F+${song}+${artist}`
 
-        return request(lyricsURL, (error, response, body) => {
+        return request(LyricURL, (error, response, body) => {
+            let finalLyrics = [];
+            let suggestion = [];
+
             if (error) throw new Error(error);
-            if (response.statusCode == 404) {
-                this.suggestion(suggestionURL);
+            if (response.statusCode >= 404) {
+                this.suggestion(googleURL);
                 return console.log(`Lyrics not found :(\n`);
             }
-
             const $ = cheerio.load(body);
-            const lyrics = $('.mxm-lyrics__content').text().toString().replace(/^(\n){2,}/gm, "\r\n");
+            const lyrics = $('.text-center').children('div').text().toString().replace(/^(\n){2,}/gm, "\r\n").split('\n');
 
             console.log(`"${song} by ${artist}"\n`);
-            console.log(lyrics);
+            for (let i = 0; i < lyrics.length; i++) {
+                if (lyrics[i].includes('Submit Corrections')) { break; }
+                finalLyrics.push(lyrics[i]);
+            }
+            console.log(finalLyrics.join('\n'));
         });
     }
     suggestion(url) {
@@ -42,15 +43,17 @@ class Lyrics {
             if (response.statusCode > 400) {
                 return console.log(`Oh no :( There was an error \n${error}`);
             }
-            const $ = cheerio.load(body);
-            const res = $('.r > a').text();
+
+            let $ = cheerio.load(body);
+            let res = $('.r > a').text();
             let suggestion = [];
             if (res) {
-                let googleResponse = res.replace(/musixmatch|lyrics|\.\.\.|http|video|audio/ig, '').split('|');
+                let googleResponse = res.replace(/metroLyrics|lyrics|\.\.\.|http|video|audio/ig, '').split('|');
                 for (let i = 0; i < googleResponse.length; suggestion.push(googleResponse[i++].split('-')));
+                
+                console.log(`${chalk.blue('Did you mean:')} ${chalk.green.bold(`"${this.WhiteSpace(suggestion[0][1])} - ${this.WhiteSpace(suggestion[0][0])}"`)}`);
+                console.log(`\n${chalk.yellow('Here are some suggestions')}`)
 
-                console.log(`Did you mean ${this.removeSpaces(suggestion[0][1])} - ${this.removeSpaces(suggestion[1][0])}`);
-                console.log(`\nHere are some other suggestions`);
                 for (let i = 1; i < 10; i++) {
                     if (suggestion[i] === undefined ||
                         suggestion[i].length <= 1 ||
@@ -58,13 +61,12 @@ class Lyrics {
                         i++;
                     }
                     else {
-                        console.log(`${this.removeSpaces(suggestion[i][1])} -  ${this.removeSpaces(suggestion[i][0])}`);
+                        console.log(`${suggestion[i][1].toString().trim()} -  ${suggestion[i][0].toString().trim()}`);
                     }
                 }
-
             }
-
         });
+        return console.log(chalk.red('Lyrics not found :('));
     }
 }
 
