@@ -20,8 +20,7 @@ class Lyrics {
 
         return request(LyricURL, (error, response, body) => {
             let finalLyrics = [];
-            let suggestion = [];
-
+            
             if (error) throw new Error(error);
             if (response.statusCode >= 404) {
                 this.suggestion(googleURL);
@@ -39,34 +38,38 @@ class Lyrics {
         });
     }
     suggestion(url) {
-        return request(url, (error, response, body) => {
-            if (response.statusCode > 400) {
-                return console.log(`Oh no :( There was an error \n${error}`);
-            }
+        try {
+            request(url, (error, response, body) => {
+                if (response.statusCode > 400) {
+                    return console.log(`Oh no :( There was an error \n${error}`);
+                }
 
-            let $ = cheerio.load(body);
-            let res = $('.r > a').text();
-            let suggestion = [];
-            if (res) {
-                let googleResponse = res.replace(/metroLyrics|lyrics|\.\.\.|http|video|audio/ig, '').split('|');
-                for (let i = 0; i < googleResponse.length; suggestion.push(googleResponse[i++].split('-')));
-                
-                console.log(`${chalk.blue('Did you mean:')} ${chalk.green.bold(`"${this.WhiteSpace(suggestion[0][1])} - ${this.WhiteSpace(suggestion[0][0])}"`)}`);
-                console.log(`\n${chalk.yellow('Here are some suggestions')}`)
+                let $ = cheerio.load(body);
+                let res = $('.r > a').text();
+                let suggestion = [];
+                if (res) {
+                    let googleResponse = res.replace(/metroLyrics|lyrics|\.\.\.|http|video|audio/ig, '').split('|');
+                    for (let i = 0; i < googleResponse.length; suggestion.push(googleResponse[i++].split('-')));
 
-                for (let i = 1; i < 10; i++) {
-                    if (suggestion[i] === undefined ||
-                        suggestion[i].length <= 1 ||
-                        suggestion[i].length > 2) {
-                        i++;
-                    }
-                    else {
-                        console.log(`${suggestion[i][1].toString().trim()} -  ${suggestion[i][0].toString().trim()}`);
+                    console.log(`${chalk.blue('Did you mean:')} ${chalk.green.bold(`"${this.WhiteSpace(suggestion[0][1])} - ${this.WhiteSpace(suggestion[0][0])}"`)}`);
+                    console.log(`\n${chalk.yellow('Here are some suggestions')}`)
+
+                    for (let i = 1; i < 5; i++) {
+                        if (suggestion[i] === undefined ||
+                            suggestion[i].length <= 1 ||
+                            suggestion[i].length > 2) {
+                            i++;
+                        }
+                        else {
+                            console.log(`${suggestion[i][1].toString().trim()} -  ${suggestion[i][0].toString().trim()}`);
+                        }
                     }
                 }
-            }
-        });
-        return console.log(chalk.red('Lyrics not found :('));
+            });
+        }
+        catch (error) {
+            return console.log(chalk.red('Lyrics not found :('), `${error.code}`);
+        }
     }
 }
 

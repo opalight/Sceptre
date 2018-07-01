@@ -39,7 +39,7 @@ let emailQuestions = [
         type: 'confirm',
         name: 'send',
         message: 'Proceed Sending?',
-        default: false
+        default: true
     },
 ];
 
