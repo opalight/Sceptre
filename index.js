@@ -1,3 +1,11 @@
+/**
+ * Copyright (c) 2018 Collin Grimm
+ * 
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+
 const mail = require('./src/mail');
 const lyrics = require('./src/lyrics');
 const quad = require('./src/quad');

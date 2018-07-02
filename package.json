@@ -40,6 +40,7 @@
   "dependencies": {
     "chalk": "^2.4.1",
     "cheerio": "^1.0.0-rc.2",
+    "cli-table": "^0.3.1",
     "commander": "^2.15.1",
     "dotenv": "^5.0.1",
     "googleapis": "^29.0.0",
@@ -47,6 +48,7 @@
     "minimist": "^1.2.0",
     "nodemailer": "^4.6.4",
     "nodemailer-smtp-transport": "^2.7.4",
+    "pouchdb": "^7.0.0",
     "request": "^2.85.0"
   }
 }
