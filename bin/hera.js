@@ -15,8 +15,6 @@ const program = require('commander');
 const hera = require('../index');
 const questions = require('../src/questions');
 
-const emailQuestions = questions.email;
-
 // Init
 const Hera = new hera();
 
@@ -31,22 +29,44 @@ const Runner = {
     },
     mail: () => {
         // Send Email
-        inquirer.prompt(emailQuestions).then(input => {
+        inquirer.prompt(questions.email).then(input => {
             Hera.Mail(input.recipient, input.subject, input.message, input.password);
         });
+    },
+    tasks: (command) => {
+        switch (command.toString().trim()) {
+            case 'list':
+                Hera.Tasks().showAllTask();
+                break;
+            case 'new':
+                inquirer.prompt(questions.task).then(input => {
+                    Hera.Tasks().newTask(input.title, input.body);
+                });
+                break;
+            // FIXME
+            case 'update':
+                inquirer.prompt(questions.task).then(input => {
+                    Hera.Tasks().updateTask(input.title, input.body);
+                });
+                break;
+            case 'purge':
+                Hera.Tasks().deleteAllTask();
+            default:
+                break;
+        }
     }
 }
 
 program
     .command('lyrics')
     .alias('ly')
-    .action((...song) => {
-        Runner.lyrics(song);
-    });
+    .action((...song) => { Runner.lyrics(song); });
 program
     .command('mail')
-    .action((arg) => {
-        Runner.mail(arg);
-    })
+    .action(arg => { Runner.mail(arg); });
+program
+    .command('tasks')
+    .alias('reminders')
+    .action(command => { Runner.tasks(command); })
 
 program.parse(process.argv);
