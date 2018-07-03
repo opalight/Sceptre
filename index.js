@@ -10,6 +10,7 @@ const mail = require('./src/mail');
 const lyrics = require('./src/lyrics');
 const quad = require('./src/quad');
 const shrug = require('./src/shrug');
+const task = require('./src/tasks');
 
 class Hera {
     Shrug() {
@@ -23,6 +24,9 @@ class Hera {
     }
     Lyrics(song, artist) {
         return new lyrics().ly(song, artist);
+    }
+    Tasks(){
+        return new task();
     }
 }
 

@@ -25,7 +25,7 @@ class Tasks {
             let uniqueID = (Math.floor(Math.random(id) * id)).toString();
 
             let task = {
-                _id: (uniqueID.length == 9) ? uniqueID : uniqueID.padStart(uniqueID.length, 0),
+                _id: (uniqueID.length < 9) ? uniqueID.padStart(9, 0) : uniqueID,
                 title: taskTitle,
                 body: taskBody,
                 lastModified: new Date().toDateString(),
@@ -40,22 +40,17 @@ class Tasks {
     }
 
     async updateTask(taskId, newTaskTitle, newTaskBody) {
-        try {
-            if (taskId) {
+        if (taskId) {
+            try {
                 let task = await TaskDB.get(taskId);
-                let id = Number(new Date().toISOString().replace(/\D|2018-\d+-\d+/gmi, ''));
-                let uniqueID = (Math.floor(Math.random(id) * id)).toString();
-
-                task._id = (uniqueID.length == 9) ? uniqueID : uniqueID.padStart(uniqueID.length, 0);
-                task._rev = task._rev;
                 task.title = newTaskTitle.trim();
                 task.body = newTaskBody;
                 task.lastModified = new Date().toDateString();
 
                 return await TaskDB.put(task);
-
-            }
-        } catch (err) { console.log(`Error: (${err.status}) ${err.name}: ${err.message}`); }
+            } catch (err) { console.log(`Error: (${err.status}) ${err.name}: ${err.message}`); }
+        }
+        else { return console.log(`Invalid or No Task ID provided`); }
     }
 
     async showAllTask() {
@@ -95,10 +90,4 @@ class Tasks {
     }
 }
 
-//module.exports = Tasks;
-
-let T = new Tasks();
-//T.newTask('Go Biking', 'Remember to go biking tomorrow morning');
-T.updateTask('4682263', 'No Biking', 'Biking cancelled');
-//T.deleteAllTask();
-//T.showAllTask();
+module.exports = Tasks;

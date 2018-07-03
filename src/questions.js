@@ -43,8 +43,31 @@ let emailQuestions = [
     },
 ];
 
+let tasksQuestions = [
+    {
+        type: 'input',
+        name: 'title',
+        message: 'Task Title',
+        validate: function (value) {
+            let valid = (value.toString().length >= 3);
+            return valid || 'Please enter a valid title';
+        }
+    },
+    {
+        type: 'input',
+        name: 'body',
+        message: 'Task Body',
+        validate: function (value) {
+            let valid = (value.toString().length >= 3);
+            return valid || 'Please enter a valid body';
+        }
+    },
+
+];
+
 let questions = {
-    email: emailQuestions
+    email: emailQuestions,
+    task: tasksQuestions
 }
 
 module.exports = questions;
