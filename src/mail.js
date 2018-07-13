@@ -1,9 +1,10 @@
 const nodemailer = require('nodemailer');
+const rootPath = require('app-root-path');
 const smtpTransport = require('nodemailer-smtp-transport');
-require('dotenv').config();
+require('dotenv').config({ path: `${rootPath.path}/.env` });
 
 class mail {
-    constructor(sender = `collins.geek@gmail.com`) {
+    constructor(sender = process.env.MAIL_USERNAME) {
         if (!(sender.match(/^[\w.+\-]+@gmail\.com$/i))) {
             return console.log(`ERROR: Gmail account required`)
         }
