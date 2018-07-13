@@ -8,7 +8,7 @@
 const PouchDB = require('pouchdb');
 const homedir = require('os').homedir();
 const fs = require('fs');
-const Table = require('cli-table');
+const Table = require('cli-table2');
 let table = new Table({
     head: ['ID', 'Title', 'Task', 'Last Modified'],
     colWidths: [15, 20, 35, 15]
@@ -20,9 +20,9 @@ class Tasks {
     async newTask(taskTitle, taskBody) {
         taskTitle = taskTitle.trim();
         try {
-            if (!taskTitle) taskTitle = new Date().toDateString();
+            taskTitle = taskTitle || new Date().toDateString();
             let id = Number(new Date().toISOString().replace(/\D|2018-\d+-\d+/gmi, ''));
-            let uniqueID = (Math.floor(Math.random(id) * id)).toString();
+            let uniqueID = (Math.floor(Math.random() * id)).toString();
 
             let task = {
                 _id: (uniqueID.length < 9) ? uniqueID.padStart(9, 0) : uniqueID,
