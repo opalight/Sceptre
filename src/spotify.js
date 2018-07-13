@@ -8,6 +8,7 @@ let app = express();
 let port = process.env.PORT || 4000;
 let ACCESS_TOKEN = null;
 let REFRESH_TOKEN = null;
+let EXPIRATION = null;
 
 
 const scope = [
@@ -64,18 +65,23 @@ app.get('/callback', (req, res) => {
         console.log(body);
         ACCESS_TOKEN = body.access_token;
         REFRESH_TOKEN = body.refresh_token;
-        let options = {
-            url: 'https://api.spotify.com/v1/me',
-            headers: { 'Authorization': `Bearer ${ACCESS_TOKEN}` },
-            json: true
-        };
-        request.get(options, (error, response, body) => {
-            console.log(body);
-        });
+        EXPIRATION = body.expires_in;
     });
     res.send('Logged In. Enjoy');
     res.redirect('/')
 });
+
+
+let options = {
+    url: 'https://api.spotify.com/v1/me',
+    headers: { 'Authorization': `Bearer ${ACCESS_TOKEN}` },
+    json: true
+};
+request.get(options, (error, response, body) => {
+    console.log(body);
+});
+
+
 
 console.log(`Visit: http://localhost:4000/authorise`);
 let server = app.listen(port, () => console.log(`Listening on port ${port}`));
