@@ -1,9 +1,18 @@
-let emailQuestions = [
+interface Questions {
+    readonly type: string;
+    readonly name: string;
+    readonly message: string;
+    readonly mask?: string;
+    readonly default?: boolean;
+    validate?: (value: string) => string | boolean;
+}
+
+export const emailQuestions: Array<Questions> = [
     {
         type: 'input',
         name: 'recipient',
         message: "Enter recipient email",
-        validate: function (value) {
+        validate: (value) => {
             let pass = value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/i);
             if (pass) { return true; }
             return 'Please enter a valid email address';
@@ -13,8 +22,8 @@ let emailQuestions = [
         type: 'input',
         name: 'subject',
         message: 'Enter the email subject',
-        validate: function (value) {
-            let valid = (value.toString().length >= 3);
+        validate: (value) => {
+            let valid: boolean = (value.toString().length >= 3);
             return valid || 'Please enter a valid subject';
         }
     },
@@ -22,8 +31,8 @@ let emailQuestions = [
         type: 'editor',
         name: 'message',
         message: 'Message',
-        validate: function (value) {
-            var valid = (value.toString().length >= 3);
+        validate: (value) => {
+            let valid: boolean = (value.toString().length >= 3);
             return valid || 'No message entered';
         }
     },
@@ -33,7 +42,7 @@ let emailQuestions = [
         name: 'password',
         message: 'Password (required for auth)',
         mask: '*',
-        validate: () => { return true; }
+        validate: (): boolean => { return true; }
     },
     {
         type: 'confirm',
@@ -43,7 +52,7 @@ let emailQuestions = [
     },
 ];
 
-let tasksQuestions = [
+export const tasksQuestions: Array<Questions> = [
     {
         type: 'input',
         name: 'title',
@@ -64,10 +73,3 @@ let tasksQuestions = [
     },
 
 ];
-
-let questions = {
-    email: emailQuestions,
-    task: tasksQuestions
-}
-
-module.exports = questions;
