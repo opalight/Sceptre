@@ -1,15 +1,9 @@
-var gulp = require('gulp');
-var gutil = require('gulp-util');
-var mocha = require('gulp-mocha');
-var istanbul = require('gulp-istanbul');
-
-gulp.task('test', mochaTask);
-gulp.task('coverage', coverage());
-
-gulp.task('watch-test', () => {
-    gulp.watch(['test/**', 'src/**'], ['test']);
-    mochaTask();
-});
+let gulp = require('gulp');
+let gutil = require('gulp-util');
+let mocha = require('gulp-mocha');
+let istanbul = require('gulp-istanbul');
+let ts = require('gulp-typescript');
+let tsProject = ts.createProject('tsconfig.json');
 
 let coverage = (opts = {}) => {
 
@@ -50,3 +44,16 @@ let logMochaError = (err) => {
         gutil.log.apply(gutil, arguments);
     }
 }
+
+gulp.task('default', () => {
+    return tsProject.src()
+        .pipe(tsProject())
+        .js.pipe(gulp.dest('build'));
+});
+gulp.task('test', mochaTask);
+gulp.task('coverage', coverage());
+
+gulp.task('watch-test', () => {
+    gulp.watch(['test/**', 'src/**'], ['test']);
+    mochaTask();
+});
