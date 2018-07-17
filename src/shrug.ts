@@ -1,4 +1,3 @@
-function shrug (){
+export const shrug = (): void => {
     return console.log(`¯\\_(ツ)_/¯`);
 }
-module.exports = shrug;
