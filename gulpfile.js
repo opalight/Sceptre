@@ -44,15 +44,20 @@ let logMochaError = (err) => {
         gutil.log.apply(gutil, arguments);
     }
 }
-
+let buildIndex = () => {
+    return gulp.src(['index.ts'], { read: true })
+        .pipe(tsProject())
+        .js.pipe(gulp.dest('lib'));
+}
 gulp.task('default', () => {
     return tsProject.src()
         .pipe(tsProject())
         .js.pipe(gulp.dest('build'));
 });
+
+gulp.task('index', buildIndex);
 gulp.task('test', mochaTask);
 gulp.task('coverage', coverage());
-
 gulp.task('watch-test', () => {
     gulp.watch(['test/**', 'src/**'], ['test']);
     mochaTask();
