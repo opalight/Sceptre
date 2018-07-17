@@ -1,12 +1,3 @@
-interface Questions {
-    readonly type: string;
-    readonly name: string;
-    readonly message: string;
-    readonly mask?: string;
-    readonly default?: boolean;
-    validate?: (value: string) => string | boolean;
-}
-
 export const emailQuestions: Array<Questions> = [
     {
         type: 'input',
