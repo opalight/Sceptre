@@ -4,6 +4,7 @@
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
  */
+/// <reference path="./hera.d.ts" />
 
 import { Mail } from './src/mail';
 import { Lyrics as lyrics } from './src/lyrics';
@@ -18,12 +19,12 @@ export class Hera {
     public Quad(a: number, b: number, c: number): void {
         return quad(a, b, c);
     }
-    public Mail(recipient: string, subject: string, message: string, password: string): void {
-        const mailConfig = {
-            recipient: recipient,
-            subject: subject,
-            message: message,
-            password: password
+    public Mail(Params: Mailer.Options.Send): void {
+        const mailConfig: Mailer.Options.Send = {
+            recipient: Params.recipient,
+            subject: Params.subject,
+            message: Params.message,
+            password: Params.password
         }
         return new Mail().Send(mailConfig);
     }
