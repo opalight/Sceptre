@@ -5,9 +5,20 @@
   "author": "Collin Grimm <hey@collingrimm.me>",
   "license": "MIT",
   "engineStrict": true,
+  "main": "lib/index.js",
+  "typings": "hera.d.ts",
   "engines": {
     "node": ">= 8.9.0"
   },
+  "scripts": {
+    "clean": "rimraf coverage build tmp",
+    "test": "npm run test-only",
+    "build": "gulp default",
+    "test-only": "jest --coverage",
+    "test:watch": "jest --watch",
+    "exec": "chmod +x bin/*.js"
+  },
+
   "repository": {
     "type": "git",
     "url": "git+https://github.com/collinsnji/Hera.git"
@@ -51,14 +62,6 @@
     "jest": "~22.4.3",
     "rimraf": "~2.6.2",
     "typescript": "^2.9.2"
-  },
-  "scripts": {
-    "clean": "rimraf coverage build tmp",
-    "test": "npm run test-only",
-    "build": "gulp default",
-    "test-only": "jest --coverage",
-    "test:watch": "jest --watch",
-    "exec": "chmod +x bin/*.js"
   },
   "dependencies": {
     "app-root-path": "^2.1.0",
