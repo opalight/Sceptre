@@ -1,3 +1,5 @@
+/// <reference path="../hera.d.ts" />
+
 export const emailQuestions: Array<Questions> = [
     {
         type: 'input',
