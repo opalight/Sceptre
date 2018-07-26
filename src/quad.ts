@@ -11,3 +11,4 @@ export function quadratic(a: number, b: number, c: number): void {
 
     return console.log(`X1: ${x1}, X2: ${x2}`);
 }
+export default quadratic

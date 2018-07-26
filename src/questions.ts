@@ -66,3 +66,9 @@ export const tasksQuestions: Array<Questions> = [
     },
 
 ];
+const questions = {
+    tasks: tasksQuestions,
+    email: emailQuestions
+};
+
+export default questions;

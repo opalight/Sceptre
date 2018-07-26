@@ -6,7 +6,7 @@ import smtpTransport from 'nodemailer-smtp-transport';
 require('dotenv').config({ path: `${rootPath.path}/.env` });
 
 export class Mail {
-    protected sender: string;
+    protected sender: string | undefined;
     constructor(Sender?: string) {
         if (Sender && !(Sender.match(/^[\w.+\-]+@gmail\.com$/i))) {
             throw new Error(`ERROR: Gmail account required`)
@@ -40,3 +40,4 @@ export class Mail {
         });
     }
 }
+export default Mail;

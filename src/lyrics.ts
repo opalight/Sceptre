@@ -8,9 +8,13 @@ const chalk = _chalk.default;
 
 export class Lyrics {
     protected WhiteSpace(str: string) { return str.toString().trim(); }
-    protected Spacer(str: string): string | any {
-        if (!str) return console.log(`No string value provided`);
-        return str.toString().toLowerCase().match(/[^_\s\W]+/g).join('');
+
+    // FIXME: @param str should be a string not of type any
+    protected Spacer(str: any): string {
+        if (str) {
+            return str.toString().toLowerCase().match(/[^_\s\W]+/g).join('');
+        }
+        throw new TypeError(`${str} is not of type string`);
     }
 
     public SongLyrics(Song: LyricsOptions.Props): any {
@@ -74,3 +78,4 @@ export class Lyrics {
         }
     }
 }
+export default Lyrics;

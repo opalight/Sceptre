@@ -35,7 +35,7 @@ export class Tasks {
             return console.log('Task added');
         }
         catch (err) {
-            console.log(`Error: (${err.status}) ${err.name}: ${err.message}`);
+            throw new Error(`(${err.status}) ${err.name}: ${err.message}`);
         }
     }
 
@@ -48,7 +48,7 @@ export class Tasks {
                 UpdatedTask.lastModified = new Date().toDateString();
 
                 return await TaskDB.put(UpdatedTask);
-            } catch (err) { console.log(`Error: (${err.status}) ${err.name}: ${err.message}`); }
+            } catch (err) { throw new Error(`(${err.status}) ${err.name}: ${err.message}`); }
         }
         else { return console.log(`Invalid or No Task ID provided`); }
     }
@@ -57,10 +57,10 @@ export class Tasks {
         let docs: Array<any> = [];
         try {
             let allDocs: any = await TaskDB.allDocs({ include_docs: true, descending: true });
-            allDocs.rows.forEach(async doc => docs.push(doc));
+            allDocs.rows.forEach(async (doc: any) => docs.push(doc));
         }
         catch (err) {
-            console.log(`Error: (${err.status}) ${err.name}: ${err.message}`);
+            throw new Error(`(${err.status}) ${err.name}: ${err.message}`);
         }
 
         docs.forEach(task => {
@@ -75,19 +75,20 @@ export class Tasks {
             TaskDB.remove(task._id, task._rev);
             return console.log('Task Deleted');
         } catch (err) {
-            console.log(`Error: (${err.status}) ${err.name}: ${err.message}`);
+            throw new Error(`(${err.status}) ${err.name}: ${err.message}`);
         }
     }
     public async deleteAllTask(): Promise<void> {
         try {
             let allDocs: any = await TaskDB.allDocs({ include_docs: true, descending: true });
-            allDocs.rows.forEach(async task => {
+            allDocs.rows.forEach(async (task: any) => {
                 task = await task;
                 TaskDB.remove(task.doc._id, task.doc._rev);
             });
             return console.log('All Task Deleted');
         } catch (err) {
-            console.log(`Error: (${err.status}) ${err.name}: ${err.message}`);
+            throw new Error(`(${err.status}) ${err.name}: ${err.message}`);
         }
     }
 }
+export default Tasks;
