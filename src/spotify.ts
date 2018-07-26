@@ -1,17 +1,19 @@
-const express = require('express');
-const request = require('request');
-const rootPath = require('app-root-path');
-const querystring = require('query-string');
+/// <reference path="../hera.d.ts" />
+
+import express from 'express';
+import request from 'request';
+import rootPath from 'app-root-path';
+import querystring from 'query-string';
 require('dotenv').config({ path: `${rootPath.path}/.env` });
 
-let app = express();
-let port = process.env.PORT || 4000;
-let ACCESS_TOKEN = null;
-let REFRESH_TOKEN = null;
-let EXPIRATION = null;
+let app: express.Application = express();
+let port: string | number = process.env.PORT || 4000;
+let ACCESS_TOKEN: string = '';
+let REFRESH_TOKEN: string = '';
+let EXPIRATION: string = '';
 
 
-const scope = [
+const scope: string = [
     'user-read-private',
     'user-read-birthdate',
     'user-read-email',
@@ -29,12 +31,12 @@ const scope = [
     'user-read-recently-played'
 ].reduce((a, b) => { return `${a} ${b}` }, '');
 
-app.get('/', (req, res) => {
+app.get('/', (req: express.Request, res) => {
     server.close();
     return res.end('Hera Spotify API');
 });
 
-app.get('/authorise', (req, res) => {
+app.get('/authorise', (req: express.Request, res: express.Response) => {
     res.redirect('https://accounts.spotify.com/authorize?' + querystring.stringify({
         response_type: 'code',
         client_id: process.env.SPOTIFY_CLIENT_ID,
@@ -44,7 +46,7 @@ app.get('/authorise', (req, res) => {
     }));
 });
 
-app.get('/callback', (req, res) => {
+app.get('/callback', (req: express.Request, res: express.Response) => {
     // get access token
     let OAuthCode = req.query.code;
     let authOptions = {
@@ -59,7 +61,7 @@ app.get('/callback', (req, res) => {
         },
         json: true
     };
-    request.post(authOptions, (err, response, body) => {
+    request.post(authOptions, (err, response, body: any) => {
         if (err) throw new Error(err.message);
 
         console.log(body);
@@ -72,12 +74,15 @@ app.get('/callback', (req, res) => {
 });
 
 
-let options = {
+let options: request.UriOptions | request.UrlOptions & request.CoreOptions = {
     url: 'https://api.spotify.com/v1/me',
     headers: { 'Authorization': `Bearer ${ACCESS_TOKEN}` },
     json: true
 };
-request.get(options, (error, response, body) => {
+request.get(options, (err, res, body) => {
+    if (err) {
+        throw new Error(err);
+    }
     console.log(body);
 });
 
