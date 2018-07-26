@@ -47,8 +47,15 @@ let logMochaError = (err) => {
 let buildIndex = () => {
     return gulp.src(['index.ts'], { read: true })
         .pipe(tsProject())
-        .js.pipe(gulp.dest('lib'));
+        .js.pipe(gulp.dest('build'));
 }
+
+let buildBinary = () => {
+    return gulp.src(['bin/hera.ts'], { read: true })
+        .pipe(tsProject())
+        .js.pipe(gulp.dest('build/bin'));
+}
+
 gulp.task('default', () => {
     return tsProject.src()
         .pipe(tsProject())
@@ -56,6 +63,7 @@ gulp.task('default', () => {
 });
 
 gulp.task('index', buildIndex);
+gulp.task('binary', buildBinary);
 gulp.task('test', mochaTask);
 gulp.task('coverage', coverage());
 gulp.task('watch-test', () => {
