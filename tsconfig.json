@@ -1,25 +1,35 @@
 {
     "compilerOptions": {
-        "alwaysStrict": true,
-        "charset": "utf8",
-        "experimentalDecorators": true,
-        "noImplicitAny": false,
-        "noImplicitReturns": true,
-        "outDir": "./build",
-        "removeComments": false,
-        "sourceMap": false,
-        "target": "es5",
+        /* Basic Options */
+        "target": "ES2016",
         "module": "commonjs",
+        "allowJs": false,
+        "sourceMap": false,
+        "outDir": "./build",
+        "strict": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "noImplicitThis": true,
+        "alwaysStrict": true,
+        "noImplicitReturns": true,
         "moduleResolution": "node",
-        "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "typeRoots": [
+            "./node_modules/@types"
+        ],
         "lib": [
             "es5",
             "es6",
             "dom"
+        ],
+        "types": [
+            "node"
         ]
     },
     "include": [
-        "./src/**/*.ts"
-    ]
+        "./src/**/*.ts",
+        "./bin/**/*.ts",
+        "./*.ts"
+    ],
 }
