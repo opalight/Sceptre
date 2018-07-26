@@ -4,13 +4,11 @@
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
  */
-/// <reference path="./hera.d.ts" />
-
-import { Mail } from './src/mail';
-import { Lyrics as lyrics } from './src/lyrics';
+import Mail from './src/mail';
+import Lyrics from './src/lyrics';
 import { quadratic as quad } from './src/quad';
-import { shrug } from './src/shrug';
-import { Tasks as task } from './src/tasks';
+import shrug from './src/shrug';
+import Tasks from './src/tasks';
 
 export class Hera {
     public Shrug(): void {
@@ -29,9 +27,10 @@ export class Hera {
         return new Mail().Send(mailConfig);
     }
     Lyrics(song: string, artist: string): void {
-        return new lyrics().SongLyrics({ title: song, artist: artist });
+        return new Lyrics().SongLyrics({ title: song, artist: artist });
     }
     Tasks() {
-        return new task();
+        return new Tasks();
     }
 }
+export default Hera;
