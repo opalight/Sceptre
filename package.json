@@ -14,9 +14,10 @@
     "clean": "rimraf coverage build tmp",
     "test": "npm run test-only",
     "build": "gulp default",
-    "test-only": "jest --coverage",
+    "test-only": "jest",
+    "test-coverage": "jest --coverage",
     "test:watch": "jest --watch",
-    "exec": "chmod +x bin/*.js"
+    "exec": "chmod +x build/bin/*.js"
   },
   "repository": {
     "type": "git",
@@ -43,7 +44,7 @@
     "@types/dotenv": "^4.0.3",
     "@types/express": "^4.16.0",
     "@types/inquirer": "^0.0.42",
-    "@types/jest": "~22.2.2",
+    "@types/jest": "^23.3.1",
     "@types/minimist": "^1.2.0",
     "@types/node": "~8.10.0",
     "@types/nodemailer": "^4.6.2",
@@ -58,8 +59,9 @@
     "gulp-mocha": "^6.0.0",
     "gulp-typescript": "^5.0.0-alpha.3",
     "gulp-util": "^3.0.8",
-    "jest": "~22.4.3",
+    "jest": "^23.4.1",
     "rimraf": "~2.6.2",
+    "ts-jest": "^23.0.1",
     "typescript": "^2.9.2"
   },
   "dependencies": {
