@@ -14,7 +14,8 @@ export class Mail {
         this.sender = Sender || process.env.MAIL_USERNAME;
     }
 
-    Send(mail: Mailer.Options.Send) {
+    Send(mail: Mailer.Options.Send): string {
+        let sent: boolean = false;
         let transporter = nodemailer.createTransport(smtpTransport({
             service: 'gmail',
             host: 'smtp.gmail.com',
@@ -32,12 +33,17 @@ export class Mail {
         };
 
         // send mail with defined transport object
-        transporter.sendMail(mailOptions, (error, info): void => {
+        transporter.sendMail(mailOptions, (error, info): boolean => {
             if (error) {
                 throw new Error(error.message);
             }
-            return console.log('Mail sent ✔');
+            sent = true;
+            return sent; //('Mail sent ✔');
         });
+        if (sent) {
+            return 'Mail sent ✔';
+        }
+        return 'Mail not sent'
     }
 }
 export default Mail;

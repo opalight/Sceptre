@@ -52,3 +52,10 @@ declare interface Questions {
     readonly default?: boolean;
     validate?: (value: string) => string | boolean;
 }
+declare namespace Runner {
+    interface Options {
+        lyrics(song: any): void;
+        mail(): void;
+        tasks(command: string): void;
+    }
+}

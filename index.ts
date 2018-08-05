@@ -15,9 +15,9 @@ export class Hera {
         return shrug();
     }
     public Quad(a: number, b: number, c: number): void {
-        return quad(a, b, c);
+        return console.log(quad(a, b, c));
     }
-    public Mail(Params: Mailer.Options.Send): void {
+    public Mail(Params: Mailer.Options.Send): string {
         const mailConfig: Mailer.Options.Send = {
             recipient: Params.recipient,
             subject: Params.subject,

@@ -1,4 +1,4 @@
-///// <reference path="hera.d.ts" />
+/// <reference path="hera.d.ts" />
 export declare class Hera {
     Shrug(): void;
     Quad(a: number, b: number, c: number): void;

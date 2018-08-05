@@ -19,8 +19,8 @@ import questions from '../src/questions';
 // Init
 const Hera = new hera();
 
-const Runner = {
-    lyrics: (song: Array<any>) => {
+const Runner: Runner.Options = {
+    lyrics: (song: Array<any>): void => {
         song = song.filter((el: any) => { return typeof el === 'string' })
         let [songName, artist]: Array<string> = song.toString().split('-');
 
@@ -28,13 +28,13 @@ const Runner = {
         artist = artist.split(',').join('');
         return Hera.Lyrics(songName, artist);
     },
-    mail: () => {
+    mail: (): void => {
         // Send Email
         inquirer.prompt(questions.email).then((input: any) => {
             Hera.Mail(input);
         });
     },
-    tasks: (command: string) => {
+    tasks: (command: string): void => {
         switch (command.toString().trim()) {
             case 'list':
                 Hera.Tasks().showAllTask();
