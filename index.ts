@@ -12,7 +12,7 @@ import Tasks from './src/tasks';
 
 export class Hera {
     public Shrug(): void {
-        return shrug();
+        return console.log(shrug);
     }
     public Quad(a: number, b: number, c: number): void {
         return console.log(quad(a, b, c));

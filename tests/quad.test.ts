@@ -10,4 +10,4 @@ describe('Running Test for Quadratic module...', () => {
     it('Return "No root" if the quadratic has complex roots', () => {
         expect(Quad(1, 4, 5)).toEqual('No real roots');
     });
-})
+});
