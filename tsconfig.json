@@ -15,6 +15,7 @@
         "moduleResolution": "node",
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
+        "removeComments": true,
         "typeRoots": [
             "./node_modules/@types"
         ],

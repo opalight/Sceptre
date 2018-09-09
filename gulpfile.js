@@ -4,6 +4,7 @@ let mocha = require('gulp-mocha');
 let istanbul = require('gulp-istanbul');
 let ts = require('gulp-typescript');
 let tsProject = ts.createProject('tsconfig.json');
+let typedoc = require('gulp-typedoc');
 
 let coverage = (opts = {}) => {
 
@@ -51,10 +52,21 @@ let buildIndex = () => {
 }
 
 let buildBinary = () => {
-    return gulp.src(['bin/hera.ts'], { read: true })
+    return gulp.src(['bin/sceptre.ts'], { read: true })
         .pipe(tsProject())
         .js.pipe(gulp.dest('build/bin'));
 }
+gulp.task('typedoc', () => {
+    return gulp.src(['src/**/*.ts'])
+        .pipe(typedoc({
+            module: 'commonjs',
+            target: 'es6',
+            out: 'docs/',
+            name: 'Sceptre',
+            theme: 'minimal',
+            version: true
+        }));
+});
 
 gulp.task('default', () => {
     return tsProject.src()
