@@ -4,15 +4,15 @@
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
  */
-/// <reference path="../hera.d.ts" />
+/// <reference path="../sceptre.d.ts" />
 
 import PouchDB from 'pouchdb';
 import { existsSync, mkdirSync } from 'fs';
 import Table from 'cli-table2';
 
 const homedir = process.env.HOME;
-if (!existsSync(`${homedir}/.local/share/Hera`)) { mkdirSync(`${homedir}/.local/share/Hera`) }
-const TaskDB: any = new PouchDB(`${homedir}/.local/share/Hera/TasksDB`);
+if (!existsSync(`${homedir}/.local/share/Sceptre`)) { mkdirSync(`${homedir}/.local/share/Sceptre`) }
+const TaskDB: any = new PouchDB(`${homedir}/.local/share/Sceptre/TasksDB`);
 
 let table: any = new Table({
     head: ['ID', 'Title', 'Task', 'Last Modified'],
