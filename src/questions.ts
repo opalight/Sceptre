@@ -1,4 +1,4 @@
-/// <reference path="../hera.d.ts" />
+/// <reference path="../sceptre.d.ts" />
 
 export const emailQuestions: Array<Questions> = [
     {

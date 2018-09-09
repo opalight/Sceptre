@@ -7,17 +7,17 @@
  * https://opensource.org/licenses/MIT
  */
 
-/// <reference path="../hera.d.ts" />
+/// <reference path="../sceptre.d.ts" />
 
 import inquirer from 'inquirer';
 import program from 'commander';
 
-import { Hera as hera } from '../index';
+import { Sceptre as sceptre } from '../index';
 import questions from '../src/questions';
 
 
 // Init
-const Hera = new hera();
+const Sceptre = new sceptre();
 
 const Runner: Runner.Options = {
     lyrics: (song: Array<any>): void => {
@@ -26,32 +26,32 @@ const Runner: Runner.Options = {
 
         songName = songName.split(',').join('');
         artist = artist.split(',').join('');
-        return Hera.Lyrics(songName, artist);
+        return Sceptre.Lyrics(songName, artist);
     },
     mail: (): void => {
         // Send Email
         inquirer.prompt(questions.email).then((input: any) => {
-            Hera.Mail(input);
+            Sceptre.Mail(input);
         });
     },
     tasks: (command: string): void => {
         switch (command.toString().trim()) {
             case 'list':
-                Hera.Tasks().showAllTask();
+                Sceptre.Tasks().showAllTask();
                 break;
             case 'new':
                 inquirer.prompt(questions.tasks).then((input: any) => {
-                    Hera.Tasks().newTask(input);
+                    Sceptre.Tasks().newTask(input);
                 });
                 break;
             // FIXME
             case 'update':
                 inquirer.prompt(questions.tasks).then((input: any) => {
-                    Hera.Tasks().updateTask({ title: input.title, body: input.body, id: input.id });
+                    Sceptre.Tasks().updateTask({ title: input.title, body: input.body, id: input.id });
                 });
                 break;
             case 'purge':
-                Hera.Tasks().deleteAllTask();
+                Sceptre.Tasks().deleteAllTask();
             default:
                 break;
         }

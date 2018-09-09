@@ -1,4 +1,4 @@
-/// <reference path="../hera.d.ts" />
+/// <reference path="../sceptre.d.ts" />
 
 import * as nodemailer from 'nodemailer';
 import rootPath from 'app-root-path';

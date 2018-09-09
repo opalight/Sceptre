@@ -1,5 +1,5 @@
-/// <reference path="hera.d.ts" />
-export declare class Hera {
+/// <reference path="sceptre.d.ts" />
+export declare class Sceptre {
     Shrug(): void;
     Quad(a: number, b: number, c: number): void;
     Mail(Params: Mailer.Options.Send): void;

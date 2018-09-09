@@ -10,7 +10,12 @@ import { quadratic as quad } from './src/quad';
 import shrug from './src/shrug';
 import Tasks from './src/tasks';
 
-export class Hera {
+/**
+ * The default Sceptre class
+ * @module Sceptre
+ * @kind class
+ */
+export class Sceptre {
     public Shrug(): void {
         return console.log(shrug);
     }
@@ -33,4 +38,4 @@ export class Hera {
         return new Tasks();
     }
 }
-export default Hera;
+export default Sceptre;
