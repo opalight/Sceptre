@@ -57,5 +57,6 @@ declare namespace Runner {
         lyrics(song: any): void;
         mail(): void;
         tasks(command: string): void;
+        shrug(): void;
     }
 }

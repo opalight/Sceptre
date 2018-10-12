@@ -55,6 +55,9 @@ const Runner: Runner.Options = {
             default:
                 break;
         }
+    },
+    shrug: (): void => {
+        return console.log(Sceptre.Shrug())
     }
 }
 
@@ -69,5 +72,9 @@ program
     .command('tasks')
     .alias('reminders')
     .action(command => Runner.tasks(command))
+program
+    .command('shrug')
+    .alias('emote')
+    .action(() => Runner.shrug())
 
 program.parse(process.argv);
