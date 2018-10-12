@@ -16,7 +16,7 @@
     "build": "./node_modules/.bin/gulp default",
     "build:docs": "./node_modules/.bin/typedoc --options typedoc.js",
     "test-only": "jest",
-    "test-coverage": "jest --coverage",
+    "coverage": "jest --coverage && cat ./coverage/lcov.info | coveralls",
     "test:watch": "jest --watch",
     "exec-bin": "chmod +x build/bin/*.js"
   },
@@ -55,6 +55,7 @@
     "@types/query-string": "^6.1.0",
     "@types/request": "^2.47.1",
     "@types/sinon": "^5.0.1",
+    "coveralls": "^3.0.2",
     "gulp": "^3.9.1",
     "gulp-istanbul": "^1.1.3",
     "gulp-mocha": "^6.0.0",
